@@ -1,0 +1,1316 @@
+\documentstyle[../../ieee/times,art10,twocolumn,fuzz,z-eves,../../ieee/latex8]{article}
+
+%\topsep=.1\baselineskip 
+
+%\intextsep=.1\baselineskip
+%\textfloatsep=.1\baselineskip
+
+\zedindent=0.35em
+\zedtab=1em
+\zedleftsep=0.25em
+
+\newcommand{\s}[1]	 {{\tt #1}}               %for security level...
+\newtheorem{aex}{Example}
+\newenvironment{ex}{\begin{aex}\rm}{\hfill$\triangle$\end{aex}}
+
+\newcommand{\fleq}{\leq}
+\newcommand{\fneq}{|}
+\newcommand{\isat}{\sim}
+\newcommand{\lproj}{\project}
+\newcommand{\Rfun}{\mbox{$\cal F_{R}$}}
+\newcommand{\LEVEL}{C}
+\newcommand{\LABEL}{L}
+\newcommand{\FID}{F}
+\newcommand{\Invisible}{\mbox{\tt Invisible}}
+\newcommand{\Object}{\mbox{\tt Obj}}
+\newcommand{\Proxy}{\mbox{\tt Prxy}}
+\newcommand{\lo}{\mbox{\tt Lo}}
+\newcommand{\hi}{\mbox{\tt Hi}}
+\newcommand{\mlo}{\mbox{\tt Mlo}}
+\newcommand{\invis}{\mbox{\tt Invisible}}
+
+\newcommand{\lev}{\gamma}
+
+
+\begin{document}
+
+\title{Supporting Secure Canonical Upgrade Policies in \\
+Multilevel Secure Object Stores\thanks{This work was supported by Forbairt 
+Basic Research Grant SC/96/611.}
+}
+
+\author{Simon N.~Foley\\
+Department of Computer Science,\\
+University College, \\
+Cork, Ireland. \\
+\verb/s.foley@cs.ucc.ie/}
+
+
+
+\maketitle
+
+\begin{abstract}
+Secure canonical upgrade policies are multilevel relabel  policies
+that, under certain conditions, allow high-level subjects to update
+low-level security labels.  This paper describes a scheme whereby these
+policies can be supported within the Message Filter Model for
+multilevel secure object-oriented database management systems.
+\end{abstract}
+
+\section{Introduction}
+
+Dynamic labeling policies support the modification of security labels
+associated with system entities. For example, in the high-water-mark
+model \cite{Weissman:69} an object's security level can rise to
+reflect the sensitivity of the data written to it.  Various security
+requirements can be captured by augmenting multilevel security with
+special dynamic labeling rules
+\cite{Foley:JCS:92,Meadows:oak:90,Sandhu:94}.
+
+Rather than using a fixed set of relabel rules supporting just one
+type of policy, the 
+mandatory access control model described in \cite{FGQ:oak:96}
+allows arbitrary relabel  functions to be specified as part of a
+re-configurable security policy.  A variety of security policies have
+been encoded using this approach, including the Chinese Wall Policy
+and dynamic segregation of duties \cite{foley:acm97,FGQ:oak:96}.
+
+A class of these relabel policies, called  {\it secure canonical
+upgrade policies\/} (SCUP), allows high-level subjects to upgrade the
+security level of low-level objects (upgrade from above).  Based on an
+extended Bell-LaPadula model \cite{bell86}, the underlying access model
+is multilevel secure \cite{FGQ:oak:96}. 
+However, it requires a form of security level
+filtering, whereby a subject at one security level cannot determine any
+difference between certain other security levels. Given this, a
+high-level subject may change the security level of a low-level object,
+and this change is unrecognizable at a low-level.
+
+This paper investigates how such relabel policies can be supported in
+the multilevel object store of a message filter \cite{jajodia} based
+multilevel secure object-oriented database management system (OODBMS).  
+The multilevel object
+store is composed of single-level stores, one for each security level,
+and each store containing the objects at the security level of the store.
+Thus, in simple terms, object relabeling involves migrating an object 
+from one store into another, while preserving referential integrity.
+
+However, the original model for relabeling \cite{FGQ:oak:96} cannot be
+directly used in this application.  If the security kernel provides the
+necessary security level filtering, then the result of 
+a high-level user relabeling a
+low-level object should be the migration of the object from one
+low-level store to another. But a low-level user, who may not test for
+a change in the label, can notice a difference in the location of the
+object.  This covert channel could be controlled within the OODBMS
+itself. This is contrary to the message filter approach, which
+places the message filter in the trusted computing base, and regards the
+OODBMS as untrusted.
+
+
+
+We solve this problem by  revising the model for relabel policies
+and show how this model can be used to support relabeling in a
+multilevel object store.  We argue that our revised model improves on
+\cite{FGQ:oak:96}. It builds directly on a standard Bell-LaPadula  model
+and thus our results are applicable to existing multilevel systems.
+While the revised model does rely on an additional trusted component to
+manage security labels, it, unlike \cite{FGQ:oak:96}, does not require
+modification to the Bell-LaPadula model to support security
+level filtering.
+
+Section~\ref{s:tier} acts as a roadmap for the remainder of the paper.
+In describing how relabel policies provide a basis for tiered
+verification, Section~\ref{s:tier} also identifies the 
+components of our approach, 
+how they relate, and the necessary verification.
+
+Our proposed approach can use the Bell-LaPadula model as the
+underlying mandatory access model. Section~\ref{s:scup} specifies the
+revised formalism and necessary properties for relabel  policies.
+The additional trusted component that supports relabel policies is
+described in Section~\ref{s:skpi}.
+Section~\ref{s:mf} gives a brief outline of the Message Filter model, and
+Section~\ref{s:proxy} describes how relabeling can be implemented in 
+multilevel object stores.
+
+The Z notation \cite{Spivey92} is used to provide a consistent syntax
+for structuring and presenting the mathematics in this paper.  In using
+Z, it has been possible to check the mathematics using the Z/EVES tool \cite{saaltink:97}.
+Appendix~\ref{s:z} gives a brief overview of the Z notation.
+
+\section{Tiered Verification} \label{s:tier}
+
+The verification of a system supporting relabel policies is done in two
+tiers \cite{FGQ:oak:96}.  The underlying security kernel, or trusted
+computing base (TCB), is first verified to be secure according to the
+multilevel mandatory access model.  This  tier is extensive and time
+consuming, possibly forming part of an evaluation process.  The second
+tier involves verifying that the relabel policy can be supported by the kernel. A system that passes the two tiers of verification is
+considered secure.  The advantage of this approach is that
+re-configuring the relabel policy requires only re-verification of the
+(easier to reason about) second tier.
+
+\begin{figure}[htb]
+\begin{center}
+\mbox{\input{tierb.latex}}
+\end{center}
+\caption{Tiered Verification\label{f:tier}}
+\end{figure}
+
+Figure~\ref{f:tier} gives a conceptual view of tiered verification.  In
+this paper, the first tier corresponds to the verification of a trusted
+component that manages the relabel policies. This component 
+(SCUP Manager) provides
+operations for making relabel requests, testing the labels of objects, 
+and so forth. It, together with a security kernel (which we assume is 
+verified) provides a {\it Security Kernel Programming Interface\/}
+(SKPI), on top of which the untrusted operating system and applications 
+are built. 
+
+The security policy for a particular enterprise is specified as a
+relabel policy and must be proven to be a secure canonical upgrade
+policy.  Section~\ref{s:scup}  gives the properties that such
+a policy must uphold.  Section~\ref{s:proxy} describes how the 
+requirements for secure relabeling in a multilevel secure object store 
+can be encoded as a SCUP policy. A sample policy for blind updates
+($ProxyPolicy$) is specified and verified (second tier) to be a SCUP
+policy.  
+
+The SKPI provides the operating system and applications with a
+low-level interface to the security policy. The {\it secure application
+programming interface\/} (SAPI), which is constructed from (untrusted)
+SCUP Macros, provides a more abstract programming
+interface that is tailored to the particular application.
+These macros, together with the SCUP policy, clearances for
+users and so forth,  make up the re-configurable user security policy. 
+
+
+\section{Secure Canonical Upgrade Policies} \label{s:scup}
+
+An information flow policy is defined in terms of a set 
+of security labels ($L$) and a partial ordering $(\_\fleq\_)$ of 
+security levels ($C$). 
+
+%%\syndef{\fleq}{inrel}{\fleq}
+\begin{schema}{FlowPolicy[\LEVEL,\LABEL]}
+\_ \fleq \_ : \LEVEL \rel \LEVEL\\
+\lev : \LABEL \fun \LEVEL 
+\where
+\forall u,v,w:\LEVEL @ \\
+\t1 (u \fleq u) \land \\
+\t1 (u \fleq v \land v \fleq u \implies u = v) \land \\
+\t1 (u \fleq v \land v \fleq w \implies u \fleq w)
+\end{schema}
+Security labels are used to specify security relevant characteristics
+of the entities in a system. For example, a purchase order object could
+have a label indicating that it has been requested, but not yet
+authorized. 
+Security (sensitivity) levels have the usual multilevel
+interpretation. 
+Given a security label $a$ and security level $u$,
+then $\lev(a)$ gives the security level of an entity with
+label $a$. 
+A traditional multilevel flow policy can be viewed as a $FlowPolicy$
+with $L=C$ and identity relation $\lev$. 
+
+An entity label may change according to relabel functions which form
+part of the policy.
+\begin{schema}{RelabelPolicy[\LEVEL,\LABEL,\FID]}
+FlowPolicy[\LEVEL,\LABEL]\\
+\Rfun : (\FID \cross \LEVEL \cross \LABEL) \fun \LABEL
+\end{schema}
+Given a set of relabel function identifiers $F$, then 
+$\Rfun(f,s,a)=b$ means that an entity at level $s$ may 
+use function $f\in F$ to change label $a$ to $b$. 
+
+\begin{ex}  \label{x:hilo}
+Given the datatype definitions
+\begin{syntax}
+HLlevs &::=& lo | hi \\
+HLlabs &::=& \lo | \mlo | \hi | \invis \\
+HLfuns &::=&  mark | upgrade 
+\end{syntax}
+define a simple flow policy $HLFlow$ as
+\begin{schema}{HLFlow}
+FlowPolicy[HLlevs,HLlabs]
+\where
+lo \fleq hi \\
+\lev = \{\lo\mapsto lo, \mlo\mapsto lo, \hi\mapsto hi,\invis\mapsto hi \}
+\end{schema}
+There are $lo$ level labels (\lo{} and {}\mlo) and $hi$ level label (\hi). 
+Label $\invis$ will be considered in the next example. 
+A selective upgrade function (from   $lo$   to $hi$) is defined as 
+\begin{schema}{HLUpgrade}
+HLFlow ; RelabelPolicy[HLlevs,HLlabs,HLfuns]
+\where
+\forall a:HLlabs; s:HLlevs @ \\
+\t1 \IF (s=lo \land a=\mlo) \\
+\t1 \THEN (\Rfun(upgrade,s,a) = \hi) \\
+\t1 \ELSE (\IF (s=lo \land a=\lo) \\
+\t1 ~~\THEN (\Rfun(upgrade,s,a) = \invis)\\
+\t1 ~~\ELSE (\Rfun(upgrade,s,a) = a))
+\end{schema}
+If the $lo$ level label is $\mlo$ then the label becomes $\hi$; 
+if it is $\lo$ then it becomes $\invis$. 
+It is straightforward to define function $mark$ to permit 
+a $lo$ level entity to mark a $\lo$ level label  as $\mlo$. 
+\end{ex}
+
+
+These relabel  policies differ from
+\cite{FGQ:oak:96} in that we distinguish between security labels and
+security levels: in \cite{FGQ:oak:96} a security label is a
+security level.  It is straightforward to re-specify 
+relabel policies such as the Chinese Wall policy and
+dynamic segregation of duties \cite{foley:acm97,FGQ:oak:96}
+using our revised formalism.  In this paper we 
+focus on just one class of relabel policy. It is introduced in the next
+example, but the reader should note that the results in this paper
+are applicable to any valid SCUP policy. 
+
+\begin{ex} \label{x:hilo-scup}
+The functions $mark$ and $upgrade$ permit  upgrades that are requested 
+from below ($lo$), and may, therefore, be viewed as  secure in the sense that 
+it is possible to build a security mechanism to support such upgrading.
+Schemes that support, what can be thought of as, 
+upgrade from below policies include  \cite{jajodia,Weissman:69,sword}. 
+Define an alternative mark (from above) function that permits a $hi$ level
+user to perform $lo$ level label marking to be
+\begin{schema}{HLMark}
+HLFlow ; RelabelPolicy[HLlevs,HLlabs,HLfuns]
+\where
+\forall a:HLlabs; s:HLlevs @ \\
+\t1 \IF (s=hi \land a=\lo) \\
+\t1 \THEN (\Rfun(mark,s,a) = \mlo) \\
+\t1 \ELSE (\Rfun(mark,s,a) = a)
+\end{schema}
+If a $lo$ level user cannot distinguish between a $\lo$ and $\mlo$ label
+then it is possible that this relabel  function is secure. 
+\end{ex}
+
+To determine whether functions such as $HLMark$ are secure it is 
+necessary to define, as part of the policy, how users at different
+levels view labels. This is defined in terms of label projection, 
+where a user at level $v$, inspecting label $a$, actually 
+sees the label  $b=(a\lproj v)$. 
+Formally,  
+
+%%\syndef{\lproj }{infun4}{\lproj}
+\begin{schema}{CanonicalPolicy[\LEVEL,\LABEL,\FID]}
+RelabelPolicy[\LEVEL,\LABEL,\FID] \\
+\_ \lproj \_ : \LABEL \cross \LEVEL \fun \LABEL\\
+invisible : \LABEL
+\where
+\forall u :\LEVEL; f:\FID @ \\
+\t1 invisible \lproj u = invisible \land \\
+\t1 \Rfun(f,u,invisible) = invisible
+\end{schema}
+A canonical policy may be thought of as a relabel policy that has a
+view-equivalence relation $a\lproj v = b\lproj v$
+(in the non-interference sense) defined over
+its labels. By default, there is a special label that is used to
+represent label projections that are $invisible$.
+
+\begin{ex}
+Continuing with the earlier examples, a {\it Mark for Blind Upgrade\/}
+canonical policy is defined as
+\begin{schema}{HLBlind}
+CanonicalPolicy[HLlevs,HLlabs,HLfuns]\\
+HLMark ; HLUpgrade
+\where
+invisible = \invis \\
+\forall a:HLlabs @ \\
+\t1 a\lproj hi = a \land \\
+\t1 \IF (a\in\{\lo,\mlo\}) \\
+\t1 \THEN (a\lproj lo = \lo) \\
+\t1 \ELSE (a\lproj lo = \invis) 
+\end{schema}
+A $hi$ level user may view all parts of a label, but a low-level user cannot 
+distinguish between $\lo$ and $\mlo$, since $\lo\lproj lo = \mlo\lproj lo$.
+Note that a $\hi$ label is $\invis$ to a $lo$ level user. 
+\end{ex}
+
+There are a number of conditions that a canonical policy must uphold to
+be secure. These ensure that a high-level user cannot interfere, in a visible
+way, with low-level labels. Section~\ref{s:skpi} proposes a
+subsystem for managing labels that is multilevel 
+secure if the canonical policies that it 
+supports uphold these conditions.
+
+\begin{schema}{CP\_CView[\LEVEL,\LABEL,\FID]}
+CanonicalPolicy[\LEVEL,\LABEL,\FID]
+\where
+\forall v,w:\LEVEL; a,b: \LABEL @\\
+\t1 (a \lproj v = b \lproj v \land w \fleq v \implies a \lproj w = b \lproj w)
+\end{schema}
+This condition (consistent view) specifies that a user may 
+not  test for differences
+between two labels that are viewed as the same
+from the projection of the user. 
+
+\begin{schema}{CP\_NWD[\LEVEL,\LABEL,\FID]}
+CanonicalPolicy[\LEVEL,\LABEL,\FID]
+\where
+\forall f:\FID ; s,v:\LEVEL; a: \LABEL @\\
+\t1 \lnot s \fleq v \implies a \lproj v = \Rfun(f,s,a)\lproj v 
+\end{schema}
+This corresponds to the unwound non-interference requirement that 
+a high-level user may not interfere with a low-level view of a label 
+(no write down). 
+
+\begin{schema}{CP\_NRU[\LEVEL,\LABEL,\FID]}
+CanonicalPolicy[\LEVEL,\LABEL,\FID]
+\where
+\forall f:\FID ; s,v:\LEVEL; a,b: \LABEL @\\
+\t1 a \lproj v = b \lproj v \implies \Rfun(f,s,a)\lproj v = \Rfun(f,s,b)\lproj v
+\end{schema}
+This corresponds to the unwound non-interference requirement
+that a change in a low-level view of a label may not depend on 
+any high-level information in the label (no read up). 
+A policy that upholds these three conditions is called
+a secure canonical upgrade policy (SCUP).
+\begin{schema}{SCUP[\LEVEL,\LABEL,\FID]}
+CP\_CView[\LEVEL,\LABEL,\FID]\\
+CP\_NWD[\LEVEL,\LABEL,\FID] \\
+CP\_NRU[\LEVEL,\LABEL,\FID]
+\end{schema}
+
+\begin{ex}
+It is straightforward to prove that the blind update policy is a
+secure canonical upgrade policy, that is, 
+$\forall HLBlind @ SCUP$. 
+\end{ex}
+
+\begin{ex}
+Suppose that details of ships is maintained using labeled objects.  The
+marking of a low-level ship object label, by a high-level user, could
+be used to indicate that the ship had been destroyed; this aspect of
+the security characteristics of this object are not known at low.
+\end{ex}
+
+\begin{ex} \label{x:hihi}
+Suppose that the $HLBlind$ policy is to be designed for a flow
+policy with disjoint high security levels $hi_{1}$ and $hi_{2}$.  In this case
+we must make sure that the marking of a $\lo$ labeled object by security level 
+$hi_{1}$ is not visible to level $hi_{2}$.  If a $\lo$ labeled object is marked by both high security levels,
+then upon upgrading, two copies must be made; one at $hi_1$, the other
+at $hi_2$. This is similar to the strategy proposed in
+\cite{Bertino:94} for garbage collecting objects in low-level stores that are
+referenced from high-level object stores.  Section~\ref{s:proxy} gives a
+specification for a general blind update policy that supports any
+information flow ordering.
+
+In \cite{FGQ:oak:96}, labels are represented by the security levels
+provided by the security kernel, and object duplication due to
+relabeling is not considered since it is possible to design the flow
+policy such that this duplication is not necessary.  However,
+representing labels as security levels  
+leads to a very large number of
+security levels and requires development of a specialized security
+kernel that provides security level filtering \cite{FGQ:oak:96}.
+\end{ex}
+
+
+
+
+\section{SCUP Manager} \label{s:skpi}
+
+This section defines a set of operations that provide a trusted
+interface to a SCUP policy.  These trusted operations make up the TCB
+extension required for standard multilevel secure systems.  While we
+present these operations within the context of our application---an
+OODBMS---we believe that they are sufficiently general to be applicable
+to other systems.
+
+Object identifiers are used to uniquely identify objects within
+an object-oriented database. Following \cite{jajodia:mf:90}, 
+an object identifier is given as
+a tuple $(u,i)$, where identifier $i$ uniquely identifies 
+an object at a security level $u$. Thus, given $ID$, the set
+of all identifiers, define 
+\begin{zed}
+%% [ID]\\
+OID[\LEVEL] == (\LEVEL \cross ID)
+\end{zed}
+%
+%\begin{gendef}[\LEVEL]
+%OID : \power (\LEVEL \cross ID)
+%\where
+%OID = (\LEVEL \cross ID) 
+%\end{gendef}
+Therefore, the security level of every object is encoded within its
+identifier. Each object $o:OID$ 
+has an associated security label $\delta(o)$.
+\begin{schema}{LabelStore[\LEVEL,\LABEL]}
+\delta : OID[\LEVEL] \pfun \LABEL\\
+\end{schema}
+$LabelStore$ defines the state of the SCUP manager. It is 
+accessed via the operations that make up its 
+programming interface.  
+
+The label of an object may be changed according to the relabel functions
+defined in a SCUP policy.  This is done by invoking the $Relabel$ operation. 
+\begin{schema}{Relabel[\LEVEL,\LABEL,\FID]}
+SCUP[\LEVEL,\LABEL,\FID] \\
+\Delta LabelStore[\LEVEL,\LABEL] \also
+req? : \LEVEL \\
+oid? : OID\\
+rfun? : \FID 
+\where
+\IF (oid?\in\dom~\delta) \\
+\THEN \delta' = \delta \oplus \{oid? \mapsto \Rfun(rfun?,req?,\delta(oid?))\}
+\\
+\ELSE     \delta' = \delta\\
+\end{schema}
+For notational convenience, let $Relabel(req?,oid?,rfun?)$ 
+represent the application of relabel function $rfun?$ to
+the label of object $oid?$, and requested by a user at 
+level $req?$. 
+
+\begin{schema}{ViewLabel[\LEVEL,\LABEL,\FID]}
+SCUP[\LEVEL,\LABEL,\FID] \\
+\Xi LabelStore[\LEVEL,\LABEL] \also
+req? : \LEVEL \\
+oid? : OID\\
+lab! : \LABEL
+\where
+\IF (oid?\in\dom~\delta\land first(oid?) \fleq req?) \\ 
+\THEN lab! = (\delta~oid?)\lproj req? \\
+\ELSE lab! = invisible
+\end{schema}
+Operation $ViewLabel(req?,oid?)$ returns, as $lab!$, the appropriate 
+projection of the label of object $oid?$ when requested by a user with 
+level $req?$.  Note that if the object does not exist then label 
+$invisible$ is returned; this prevents a low-level user 
+testing the existence of  high-level objects. 
+
+Since users may view only their projection of an object label,
+we provide an operation that permits the copying of the 
+underlying value of an object label. 
+\begin{schema}{CopyLabel[\LEVEL,\LABEL,\FID]}
+SCUP[\LEVEL,\LABEL,\FID] \\
+\Delta LabelStore[\LEVEL,\LABEL] \also
+req? : \LEVEL \\
+oid? : OID\\
+newid? : ID
+\where
+\IF ((first~oid?) \fleq req?\\ 
+\t2 \land ( \lnot ((req?,newid?)\in \dom\delta)) \\
+\land  oid? \in \dom \delta)  \\
+\\
+\THEN \delta' = \delta \cup \{(req?,newid?) \mapsto \delta~oid?\}
+\\
+\ELSE \delta' = \delta
+\end{schema}
+Operation $CopyLabel(req?,oid?,newoid?)$, requested by a user at 
+level $req?$,  creates a new object 
+$newoid?$ and assigns it the label of object $oid?$. 
+The security level of the new object (given by its identifier) must be 
+the same as the security level of the requester, and must be
+consistent with it's intended label. 
+
+Note that, unlike \cite{FGQ:oak:96}, the SCUP manager may also be used
+to manage the security labels of subjects.  Further operations, such as
+delete, should be included within the SKPI, but for reasons of space
+they are not considered here.  However, the three operations proposed
+above provide a sufficient programming interface for supporting SCUP
+policies in a multilevel object store.
+
+
+We have proven that this subsystem is multilevel secure in the sense
+that no high-level user can use the subsystem to interfere with a
+low-level user's interactions with the subsystem. Appendix~\ref{a:noni}
+gives details of what has been proven. 
+
+\section{Message Filtering OODBMS} \label{s:mf}
+
+
+The message filter model \cite{jajodia:mf:90} supports multilevel
+security in object-oriented database systems according to the Bell and
+LaPadula (BLP) model.  If message passing is the only communication possible
+between objects, then it forms the basis for all information flow.  Every
+object is assigned a security level, and a {\it message filter\/}
+mediates all message passing between objects 
+ such that information may flow  according to the information flow relation.
+These database objects are viewed as both objects and subjects in the
+Bell-LaPadula model.  As objects, they have state, and as subjects,
+they execute actions by sending messages. 
+
+Implementation of the  message filter model does not rely on the
+construction of a special trusted OODBMS:  if the   message filter
+lies within the TCB of a multilevel system, then the remainder of the
+application can be based on existing and untrusted OODBMSs.
+The left-hand side of Figure~\ref{f:mf}
+gives a representation of the message filter model.
+The (multilevel) persistent object store is partitioned
+\begin{figure}[htb]
+\begin{center}
+\input{mf.latex}
+\end{center}
+\caption{Message Filter \& Single Level Stores \label{f:mf}}
+\end{figure}
+into a collection of single-level stores. The underlying security
+kernel, upholding the usual BLP axioms, ensures that it is not possible
+for an (untrusted) OODBMS to violate the multilevel policy. 
+
+This very brief outline of the message filter model is sufficient for
+the purposes of this paper.  To introduce some of the problems that
+arise with relabeling in object stores, the next example describes how
+it could be implemented using a multilevel garbage-collection scheme.
+The example only sketches the approach since a more satisfactory scheme
+is proposed in Section~\ref{s:proxy}.
+
+
+\begin{ex}
+Consider a multilevel object store and the flow policy $HLFlow$. 
+A simple configuration has objects
+$B$ and $C$ in the $lo$ level store and a single  object $A$ in the $hi$ level
+store,  with security labels as indicated in Figure~\ref{f:store}(a).
+\begin{figure}[htb]
+\begin{center}
+\begin{tabular}{ccc}
+\input{store1.latex} & \input{store2.latex}& \input{store3.latex} ~~\\
+ (a)  & (b) & (c)
+\end{tabular}
+\end{center}
+\caption{Relabeling and Referential Integrity\label{f:store}} 
+\end{figure}
+Suppose that object $B$ had been marked by another $lo$ level object
+(mark from below, Example~\ref{x:hilo}). When a request is made 
+at $lo$ to upgrade $B$, a copy ($B'$) must be made
+in the $hi$ level store, and references from $A$ and $C$, to $B$, 
+must be updated  to preserve referential integrity (Figure~\ref{f:store}(b)). 
+
+However, if $A$ had been marked by a request at security level $hi$
+(Example~\ref{x:hilo-scup}), then the new configuration in
+Figure~\ref{f:store}(b) would lead to a covert channel.  Object $C$ can
+test its reference to $B$ and a noticeable change in the pointer from a
+$lo$ level reference to a $hi$ level reference could be controlled by
+$hi$. To prevent this channel, the $lo$ level references must not be
+updated (Figure~\ref{f:store}(c)). 
+
+It is possible to view relabeling as a class of multilevel garbage
+collection problem. In \cite{Bertino:94} the authors propose a garbage
+collection scheme for a message-filter-based multilevel object store
+that is based on a minimal number of trusted components.  A garbage
+collector running at $lo$  retrieves (garbage collects) objects that
+are not referenced by any other $lo$ level object in the store.  The
+$lo$ level collector is not permitted to know of $hi$ level references
+to such objects.  The essence of the scheme in \cite{Bertino:94} is
+that another $hi$ level collector copies these $lo$ level objects into
+the $hi$ level store (appropriately updating $hi$ level references),
+before the original object is retrieved by the $lo$ level garbage
+collector.
+
+This scheme can be used to carry out relabeling if the criteria for
+garbage collecting is modified. The SCUP manager maintains individual
+object labels via the operations described in Section~\ref{s:skpi}.
+After a series of $Relabel$ requests to the SCUP manager, labels
+may be out of alignment with their object's security level, that is
+$first(o) = \lev(\delta(o))$ no longer holds.  A low-level object that
+is out of alignment (tested using $ViewLabel$ and $\lev$) should
+be regarded as an object that is to be retrieved.  The same test is
+used by the high-level collector to check if a copy of the object
+should be made at this high level (object label aligns at this security level),
+and references appropriately updated.
+
+Realignment must occur periodically, and, as with garbage
+collection, must scan the entire database, aligning objects to
+their labels. The advantage of this relabeling by realignment scheme is
+that since it is based on the multilevel garbage collection scheme it
+requires a minimal number of trusted components (in addition to the
+SCUP manager). However, there are   disadvantages that makes
+it impractical.  Relabeling does not occur at the time of the request.
+Furthermore, it is not practical to frequently run the realignment
+process and, therefore, objects will be regularly out of alignment.
+\end{ex}
+
+\section{Proxy Enabled Blind Update Policy} \label{s:proxy}
+
+Relabeling of objects can be viewed as an object migration problem, 
+where an object must be moved from one single level object
+store to another, at a different security level.  This migration must be done so
+that it is multilevel secure and referential integrity is preserved.  In this
+section we propose a method of multilevel secure relabeling based on data migration 
+and, given the SCUP manager, can be built from untrusted
+components.
+
+
+{\it Proxy objects\/} \cite{corradi:90,decouchant:89,makpangou:88} can
+be used to support object migration between object stores.  Proxies
+provide a level of indirection for references to objects in remote
+object stores and are used in systems such as Distributed Smalltalk
+\cite{corradi:90} and
+SOS \cite{makpangou:88}.  
+In addition to migration, they have a variety of uses, including
+remote invocation, physical location transparency and reuse.
+
+\begin{ex} \label{x:proxy}
+Figure~\ref{f:proxy}(a) shows two object stores 
+with  objects $A$, $B$ and $C$. Suppose that object 
+$B$ is to be migrated from the $lo$ level store to the $hi$ level
+store. Figure~\ref{f:proxy}(b) shows the result of this
+migration. 
+\begin{figure}[htb]
+\begin{center}
+\begin{tabular}{ccc}
+\input{proxy1.latex} & \input{proxy2.latex}&\input{proxy3.latex}~~\\
+ (a)  & (b) & (c) 
+\end{tabular}
+\end{center}
+\caption{Object Migration using Proxies \label{f:proxy}} 
+\end{figure}
+A copy of $B$ is moved to the  $hi$ level store as $B'$, and $B$ becomes a proxy
+object for $B'$. When a message is passed to $B$, the proxy forwards
+the message on to its current 
+copy $B'$\footnote{Proxy objects provide physical location transparency. 
+For complete transparency in our example we should include a proxy for $A$'s
+reference to $B$.}.  
+If  desired, references can be updated when proxies are referenced, for
+example,  having communicated with proxy $B$, object $A$ could
+update its reference to $B'$ (Figure~\ref{f:proxy}(c)).
+\end{ex}
+
+If proxies are used to support migration due to relabeling then it must
+not be possible to use a proxy to violate multilevel security.
+Studying Figure~\ref{f:proxy}(b), while the $hi$ level object $A$ should be
+allowed to follow the proxy to $B'$, if the migration was due to a mark
+requested from above (Example~\ref{x:hilo-scup}), then object $C$
+should not be able use the proxy to test for the existence of $B'$.
+Similar mediation must done on references from proxies where the
+relabeling/migration resulted in the instantiation of a number of
+copies of the object  at different security levels (Example~\ref{x:hihi}).
+ 
+Therefore, it is necessary to associate security characteristics 
+with proxy objects and, in turn, control access to 
+objects based on these characteristics. This can be done
+ by encoding the requirements 
+into a SCUP policy; the SCUP manager and existing MLS
+security kernel will provide the necessary mediation. 
+The reader should note that while 
+the  policy presented here is specified for blind updates only, 
+ the scheme can form the basis of any consistent SCUP policy. 
+
+Let $Level$ represent the set of all security levels of interest. 
+%%\begin{zed}
+%%[Level]
+%%\end{zed}
+We define the set of security labels to be the datatype
+\begin{syntax}
+Label &::=& \Invisible \\
+      & | & \Object \ldata Level\cross \power Level \rdata \\
+      & | & \Proxy \ldata Level \cross 
+                         \power Level \cross (Level\pfun ID) \rdata
+\end{syntax}
+%%\begin{zed}
+%%\Label{axiom splitLabelInvisible}
+%%\forall a:Label @ 
+%% a=\Invisible \iff 
+%%((a\notin \ran \Object) \land (a\notin \ran \Proxy)) 
+%%\\
+%%\Label{axiom splitLabelObject}
+%%\forall a:Label @ a\in\ran\Object \iff 
+%%( a\neq \Invisible \land (a\notin \ran \Proxy)) 
+%%\\
+%%\Label{axiom splitLabelProxy}
+%%\forall a:Label @ a\in\ran\Proxy \iff 
+%%(a\neq \Invisible \land (a\notin \ran \Object)) 
+%%\end{zed}
+%%\begin{zed}
+%%\Label{axiom ObjectInjection}
+%%\Object \in ((Level \cross \power Level) \pinj Label )\\
+%%\Label{axiom ProxyInjection}
+%%\Proxy \in (Level \cross (\power Level) \cross (Level\pfun ID)) \pinj Label
+%%\end{zed}
+A label $\Object(u,M)$ represents an object at security level $u$ that 
+has been marked by objects at levels in $M$. 
+The label $\Proxy(u,M,P)$ represents an object at security level 
+$u$, that was marked by objects at security levels in $M$, and 
+is acting as a proxy to the set of objects with 
+object identifiers in $P$. Recall that an object identifier is 
+of the form $(v,i)$, where $i$ uniquely identifies the object within
+the object store at security level $v$. 
+
+\newcommand{\upgrade}{\mbox{\tt mkprxy}}
+\newcommand{\marku}{\mbox{\tt mrk}}
+\newcommand{\unmark}{\mbox{\tt unmrk}}
+\newcommand{\refp}{\mbox{\tt ref}}
+\newcommand{\strip}{\mbox{\tt strip}}
+\newcommand{\lup}{\mbox{\tt up}}
+
+\begin{ex}
+Consider Example~\ref{x:proxy}. If object $B$ has initial label
+$\Object(lo,\{\})$ then Figure~\ref{f:proxyl}(a) gives the
+configuration resulting from a $hi$ level object making request
+$Relabel(hi,B,\s{mark})$ to the SCUP manager.
+\begin{figure*}[htb]
+\newcommand{\sixtt}{\tiny\tt}
+\begin{center}
+\begin{tabular}{ccc}
+\input{proxy4.latex} &\input{proxy5.latex} &\input{proxy6.latex}\\
+(a) 
+& (b): $CopyLabel(lo,B,B'')$ 
+& (c): $Relabel(lo,B,\upgrade)$
+\\~\\
+~~~~~~~~~~\input{proxy7.latex} & \input{proxy8.latex}&\input{proxy9.latex}\\
+(d): $Relabel(lo,B'',\lup(hi))$
+& (e): $CopyLabel(hi,B'',B')$
+& (f): $Relabel(hi,B,\refp(B')$
+\end{tabular}
+\end{center}
+\caption{Relabeling using Proxy Labels\label{f:proxyl}}
+\end{figure*}
+The upgrading of $B$ requires a number of SCUP manager invocations and 
+these are illustrated in Figure~\ref{f:proxyl} (b) to (f).
+Each of these relabel  functions will be explained as they are defined
+below.
+\end{ex}
+
+%%\begin{theorem}{isInDomRan}[X,Y]
+%%\forall f:X\rel Y @ f \in \dom \ran[X,Y]
+%%\proof
+%%rewrite;
+%%\end{theorem}
+
+Define the relabel function identifiers to be
+\begin{syntax}
+Fid &::=& \marku | \unmark | \upgrade \\
+    &|& \refp\ldata OID[Level] \rdata 
+               | \lup\ldata Level\rdata
+\end{syntax}
+%%\begin{zed}
+%%\Label{axiom splitFidmkproxy}
+%%\forall f:Fid @ \\
+%%\t1 f=\upgrade \iff 
+%%(f \neq \marku \land f \neq \unmark \land 
+%%f\notin\ran\refp \land f\notin\ran\lup) 
+%%\\
+%%\Label{axiom splitFidref}
+%%\forall f:Fid @ 
+%%\\
+%%f\in\ran[OID[Level],Fid] \refp 
+%%\iff 
+%%(f \neq \marku \land f \neq \unmark \land 
+%%f\neq \upgrade \land f\notin\ran\lup) 
+%%\end{zed}
+
+\begin{schema}{LabelLevels}
+CanonicalPolicy[Level,Label,Fid]
+\where
+\forall u:Level; M:\power Level; P:Level\pfun ID @ 
+\\
+\t1 \lev(\Object(u,M)) = u \land {}\\
+\t1 \lev(\Proxy(u,M,P)) = u
+\end{schema}
+It is not necessary to define any particular security 
+level ordering $(\_\leq\_)$---it can be specified at a later stage.
+%An object with label $\Object(u,M)$ may be instantiated only at security level %$u$, and similarly for a proxy label $\Proxy(u,M,P)$.
+% may be instantiated at $u$ or at any
+%level at which it may act as a proxy to an object (at that security level). 
+%This definition will be explained when  function $\s{upgrade}$ is specified.
+%
+\newcommand{\bound}{bnd}
+\begin{schema}{LabelProjection}
+CanonicalPolicy[Level,Label,Fid] \\
+\bound : Level \fun \power Level 
+\where
+invisible = \Invisible 
+\\
+\forall x:Level @ \bound(x) =  \{ y:Level | y \fleq x\}
+\\
+\forall u,v:Level; M:\power Level; P:Level\pfun ID @ \\
+\t1 (\IF (u \fleq v ) \THEN 
+\\
+\t2 (\Object(u,M)\lproj v = \Object(u,M\cap \bound(v)) \land \\
+\t2  \Proxy(u,M,P)\lproj v \\ 
+\t7 = \Proxy(u, M\cap \bound(v), \bound(v)\dres P))\\
+\t1 \ELSE
+\\
+\t2 (\Object(u,M)\lproj v = \Invisible \land\\
+\t2 \Proxy(u,M,P)\lproj v = \Invisible))
+\end{schema}
+A user at class $v$ views  a label as invisible if 
+that label cannot be instantiated at a security level dominated by $v$. 
+If an object is visible to a user at class $v$ 
+then the user may view only those marked levels and proxy references
+that it dominates. 
+For example,  
+we have $\Object(lo,\{hi\})\lproj lo = \Object(lo,\{\})\lproj lo$ and
+$\Proxy(lo,\{hi\},\{(hi,B'\})\lproj lo= \Proxy(lo,\{\},\{\})$. 
+
+
+\begin{schema}{Mark}
+LabelLevels ; LabelProjection
+\where
+\forall u,s:Level; M:\power Level; P:Level\pfun ID @ 
+\also
+\t1 \Rfun(\marku,s,\Proxy(u,M,P)) = \Proxy(u,M,P) \land 
+\also
+\t1 \IF (u\fleq s \land u\neq s ) \\
+\t1 \THEN (\Rfun(\marku,s,\Object(u,M)) = \Object(u,M\cup\{s\}))\\
+\t1 \ELSE (\Rfun(\marku,s,\Object(u,M)) = \Object(u,M)) 
+\end{schema}
+The $\marku$ function may be used by any user whose security level strictly 
+dominates the security level of the object.  
+
+\begin{schema}{UnMark}
+LabelLevels ; LabelProjection
+\where
+\forall u,s:Level; M:\power Level; P:Level\pfun ID @ 
+\also
+\t1 \Rfun(\unmark,s,\Proxy(u,M,P)) = \Proxy(u,M,P) \land 
+\also
+\t1 \IF (u\fleq s )\\
+\t1 \THEN (\Rfun(\unmark,s,\Object(u,M)) = \Object(u,M\setminus\{s\}))\\
+\t1 \ELSE (\Rfun(\unmark,s,\Object(u,M)) = \Object(u,M)) 
+\end{schema}
+The $\unmark$ function may be used to reverse the result of a 
+$\marku$ request. 
+
+\begin{schema}{MkProxy}
+LabelLevels ; LabelProjection
+\where
+\forall u,s:Level; M:\power Level; P:Level\pfun ID @ 
+\also
+\t1 \Rfun(\upgrade,s,\Proxy(u,M,P)) = \Proxy(u,M,P) \land 
+\also
+\t1 \IF (s=u) \\
+\t1 \THEN  (\Rfun(\upgrade,s,\Object(u,M)) = \Proxy(u,M,\{\})) \\
+\t1 \ELSE  (\Rfun(\upgrade,s,\Object(u,M)) = \Object(u,M))
+\end{schema}
+When an object is upgraded it first becomes a proxy object.  The
+relabel is requested at the security level of the object, and thus the set of
+proxy references is empty since, it is not possible, at this this
+point, to specify the  set of objects for which it will act as a proxy
+(the references are high-level data).  Figure~\ref{f:proxyl}(c)
+illustrates this step in upgrading. Note that before applying function
+$\upgrade$, a copy of the original object label is made (Figure~\ref{f:proxyl}(b)).
+
+To avoid excessive object duplication an object is upgraded  to
+the lowest bounds of the security levels by which it was marked, 
+rather than to all
+levels by which it was marked.  Thus, if an unclassified object was marked by
+both secret  and topsecret, then when upgraded by unclassified it
+becomes a secret object (marked by topsecret).  
+
+Once an object $o$ has been relabeled as a proxy object, 
+copies of it must be made at each security level $s$ at 
+which it  might have been marked.
+It is not possible for the marked object to be aware of the 
+levels by which it has been marked.
+Therefore, each copy must be created at the security level
+$s$ of the new object.  This creation is done by the OODBMS, which also 
+generates a suitable identifier for the object. 
+\begin{schema}{Upgrade}
+LabelLevels ; LabelProjection
+\where
+\forall u,v,s:Level; M:\power Level; P:Level\pfun ID @
+\also
+\t1 \Rfun(\lup(v),s,\Proxy(u,M,P)) = \Proxy(u,M,P) \land 
+\also
+\t1 \IF ((s=u)\land (u\fleq v)) \\
+\t1 \THEN (\Rfun(\lup(v),s,\Object(u,M)) \\
+\t5      = \Object(v, \ran(\{v\}\dres (\_ \fleq \_) \rres M))) \\
+%\t1 \THEN (\Rfun(\lup(v),s,\Object(u,M)) = \Object(v,\{w:M|v\fleq w\})) \\
+\t1 \ELSE (\Rfun(\lup(v),s,\Object(u,M)) = \Object(u,M))
+\end{schema}
+If the original label of the object was $\Object(u,M)$, then 
+function $\lup(v)$ upgrades the label so that its level $v$ corresponds to 
+the level of the new copy. 
+ Note that, in order to prove this function secure,  
+this relabeling request must be made 
+at the level of the  original object ($u$), while the copying 
+(if it occurs) must be requested at the level of its copy. 
+Figure~\ref{f:proxyl}(d) and Figure~\ref{f:proxyl}(e) 
+illustrate this migration of the original object. 
+As noted above, this relabeling and copying  must be done for every
+level---the temporary objects that are 
+used to give the labels for these copies  ($B''$ in
+Figure~\ref{f:proxyl}(d)) can be garbage-collected at a later stage.
+
+\begin{schema}{Ref}
+LabelLevels ; LabelProjection
+\where
+\forall o:OID[Level]; u,s:Level; \\
+\t1 M:\power Level; P:Level\pfun ID @ 
+\also
+\t1 \Rfun(\refp(o),s,\Object(u,M)) = \Object(u,M)   \land 
+\also
+\t1 \IF ((u\fleq s) \land (s \in M ) \land (first(o) = s)) \\
+\t1 \THEN (\Rfun(\refp(o),s,\Proxy(u,M,P)) \\
+\t7 = \Proxy(u,M,P\oplus\{o\})) \\
+\t1 \ELSE (\Rfun(\refp(o),s,\Proxy(u,M,P)) \\
+\t7 = \Proxy(u,M,P))
+\end{schema}
+If the identifier of this object is  $o'$ then
+relabel function $\refp(o')$ is used to update the label of the proxy
+of the original object $o$ (an update requested from above).
+For example, in Figure~\ref{f:proxyl}(e) the copy $B'$ is created at 
+level $hi$. Its ($hi$) object-identifier is then used to 
+update the references in the proxy label of $B$ (Figure~\ref{f:proxyl}(f)). 
+
+
+The complete proxy based blind update policy may be specified as
+\begin{zed}
+ProxyPolicy \defs Mark \land UnMark \land MkProxy \\
+\t8 \land Upgrade \land Ref  
+\end{zed}
+and it has been proven that
+\[ \forall ProxyPolicy @ SCUP[Level,Label,Fid] \]
+
+The operation of marking an object is done by invoking
+operation $Relabel$. 
+However, the upgrade operation is implemented by a series
+of relabels performed at different security levels.  
+Relabel macro $Upgrade$ implements these relabels
+\begin{center}
+\framebox{
+\begin{minipage}{6in}
+\begin{tabbing}
+$Upgr$\=$ade(s:Level, o:OID)$\{
+\\
+\> $a \leftarrow ViewLabel(s,o)$; \\
+\> if\= ~$(a=\Object(s,M))$ then \{\\
+\>\>$ol \leftarrow$ NewOid();\\ 
+\>\>$CopyLabel(s,o,ol)$; \\
+\>\>$Relabel(s,o,\upgrade)$; \\
+\>\>$Migrate(s,o,ol)$; \\
+\>\} \\
+\}\hspace{3in}
+\end{tabbing}
+\end{minipage}
+}\end{center}
+If $Upgrade$ is regarded as an operation of the (untrusted) object
+manager, and  there is a copy of it available at each security level, then
+it need not form part of the TCB. An object, whose current security level
+($rlevel$ in \cite{jajodia:mf:90}) is given as $s$, invokes (message
+passing) $Upgrade(s,o)$ to perform an upgrade on object $o$. Invocation of 
+this operation corresponds to an untrusted subject running at 
+security level $s$, making requests to the TCB (SCUP manager).
+
+At security level $s$, operation $Upgrade$ has no way of determining 
+what copies are to be made: invoking $ViewLabel(s,o)$ will 
+return only the view that a user at security level $s$ 
+may have on the  object's label. 
+$Upgrade(s,o)$ invokes (message passing) $Migrate$. 
+\begin{center}
+\framebox{
+\begin{minipage}{6in}
+\begin{tabbing}
+$Migr$\=$ate(s:Level; po,ol:OID)$\{
+\\
+\> $a\leftarrow ViewLabel(s,ol)$; \\
+\> if\= ~$(a=\Object(s,M) \land s\in M)$ then \{ \\
+\>\> $oc\leftarrow$ CopyObject$(po)$; \\
+\>\> $CopyLabel(s,ol,oc)$; \\
+\>\> $Relabel(s,oc,{\tt unmark}(s))$; \\
+\>\> $Relabel(s,po,\refp(oc))$;  \\
+\> \}else\\
+\>\> for\= ~each $v\in$~mins$\{u:Level | s < u\}$ then \{ \\
+\>\>\> $ol' \leftarrow$ NewOid(); \\
+\>\>\> $CopyLabel(s,ol,ol')$; \\
+\>\>\> $Relabel(s,ol',\lup(v))$; \\
+\>\>\> $Migrate(v,po,ol')$;\\
+\>\>\} \\
+\}\hspace{3in}
+\end{tabbing}
+\end{minipage}
+}
+\end{center}
+Operation $Migrate(s,po,ol)$ determines whether or not a copy of the
+object $po$ should be migrated to the level $s$. If  migration is
+required, then the label for the copy of $po$ is provided by $ol$. The
+object $po$ should be migrated to level $s$ if the label of $ol$ 
+includes a marking by level $s$.
+
+If migration is not required at this level then it may be required at
+levels that dominate $s$, that is, $ol$ may be marked at these levels. 
+But there is no way of testing this by requesting $ViewLabel$ at 
+level $s$. Thus, $Migrate(v,po, ol')$ is recursively called 
+for each level that is a lowest bound on the levels that strictly dominate 
+$s$. 
+
+Operation $Migrate$ may also be regarded as untrusted.  Under the
+message filter model, when $Migrate(s,po,ol)$ passes a message 
+with a request to invoke $Migrate(v,po,ol')$, where $v$ strictly
+dominates $s$, the return message ($null$) is sent immediately. This
+prevents downward signalling channels that might arise from higher
+level objects varying their response time.
+
+When a message is sent to an object that has a proxy label, the object
+manager must determine whether the message is to be forwarded or not.
+This is achieved by inspecting the object's label (at the security level of the
+requester). If the proxy reference is empty, then this is the object,
+otherwise a proxy reference must be followed.
+\begin{center}
+\framebox{
+\begin{minipage}{6in}
+\begin{tabbing}
+$OID$~\=$Resolve(s:Level, o:OID)$\{\\
+\> $a \leftarrow ViewLabel(s,o)$; \\
+\> if $(\mbox{a}=\Proxy(u,M,P)\land P\neq\empty)$ 
+\\ 
+\> then return($Resolve(s,(\mu x:P@x)$)) ;\\
+\> else return(o);\\
+\}\hspace{3in}
+\end{tabbing}
+\end{minipage}
+}
+\end{center}
+
+
+\begin{ex}
+The SCUP policy $ProxyPolicy$ can be used with any underlying flow policy.
+ Consider the ordering with security levels $x$, $y$, $z$, and 
+$w$, where $x<y<w$, $x<z<w$, with disjoint $y$ and $z$. 
+An object $A$ at security level $x$  that was marked by security levels $y$, $z$, and $w$,
+has label $\Object(x,\{y,z,w\})$. An object at security level $y$ referencing
+$A$ has no way of determining whether it has been marked by 
+disjoint $z$ or higher $w$, since 
+$Viewlabel(y,A)$ returns $\Object(x,\{y\})$. 
+
+Operation $Upgrade(x,A)$ gives object $A$ a proxy label
+$\Proxy(x,\{w\},\{(y,A'),(z,A'')\})$, with references to copies $A'$ at
+level $y$ and $A''$ at security level $z$. These objects inherit the marking
+from $w$:  the label for $A'$ is $\Object(y,\{w\})$, so that a subsequent
+ upgrade requested at $y$ on $A'$ will upgrade it to $w$.
+A reference to $A$ at security level $y$ will be resolved to 
+$Resolve(y,A)=A'$, while $Resolve(z,A)=A''$. A reference
+to $A$ by a $w$ security level object can be resolved to either
+$A'$ or $A''$, it does not matter, as far as security is concerned, 
+ which is used. 
+\end{ex}
+
+A number of variations may be made to $ProxyPolicy$.  For example, it
+is straightforward to also support the marking of an object at levels
+that are dominated by the object's security level (mark requested from 
+below).  In this case, when
+the object is upgraded, then it is possible for low-level references to
+proxies to be resolved to high-level references if the marking was
+originally requested from the low-level.
+
+
+\section{Conclusion}
+
+Tiered verification spreads the verification of security across two
+tiers. The first tier corresponds to the verification of the system's
+trusted computing base. The second tier involves the verification of
+the application or site-specific  security policy.  Modification of the
+application security policy requires verification of just the easier to
+reason about second tier.
+
+Relabel policies are used to provide the basis for tiered verification
+and the SCUP manager specified in Section~\ref{s:skpi} gives the
+additional TCB component required to support these policies.  In this
+paper we focused on a particular class of policy, a flexible relabel
+policy for multilevel object stores.  It is interesting to note that
+the security requirements for this application are captured, in their
+entirety, as the relabel policy $ProxyPolicy$.  Other relabel policies,
+such as those in  \cite{FGQ:oak:96} can be similarly adapted and 
+enforced in a multilevel object store.
+
+A dual perspective may be taken on an object. An object has a state
+which encodes its functional characteristics. An object also has a
+security label (state), which encodes its corresponding security
+characteristics. Methods are used to update the object state, while
+relabel functions  update the security state. Given this, method
+invocation may be interpreted as message passing to the object
+concerned plus a relabeling request. Designing object-oriented
+application systems where functionality and security is partitioned 
+in this way is a topic worth future investigation.
+
+The abstract SCUP manager specified in Section~\ref{s:skpi} has been
+verified multilevel secure. This allows us to argue that our overall
+approach is sound. Further research must be done on the practical
+implementation and verification of this manager.  We are currently
+exploring a kernelized approach, where we view the SCUP manager as a
+separate database system and subset it into a number of untrusted
+single level components.  We hope to report on this work at a future
+date.
+
+\bibliographystyle{../../ieee/latex8}
+\bibliography{/home/security/simon/tex/bib/Simons}
+
+
+
+\appendix
+\section{The Z Notation} \label{s:z}
+
+A set may be defined in Z using set specification in comprehension.
+This is of the form $\{~D|P\spot E~\}$, 
+where $D$ represents declarations, $P$ is a predicate and $E$ an expression.
+The components of  $\{~D|P\spot E~\}$
+are the values taken by expression $E$ 
+when the variables introduced by $D$ take all possible
+values that make the predicate $P$ true.  
+%For example, 
+%the set of squares of all even natural numbers is
+%defined as $\{~n:\nat | (n \mod 2) = 0 \spot n^{2}~\}$. 
+When there is only one variable in the declaration 
+and the expression consists of just that variable, then the
+expression may be dropped if desired. 
+%For example, 
+%the set of all even numbers may be written as 
+%$\{~n:\nat | (n \mod 2) = 0~\}$. An equivalent way to define this set is as
+%$\{~n:\nat \spot (2*n) ~\}$---the predicate may be dropped if it equals true.
+%Sets may also be defined in display form such as $\{1,2\}$.
+
+In Z, relations and functions are represented as sets of pairs.  A
+(binary) relation $R$, declared as having type $A\rel B$, is a
+component of $\power (A\cross B)$.  For $a\in A$ and $b\in B$, then the
+pair $(a,b)$ is written as $a\mapsto b$, and $a\mapsto b\in R$  means
+that $a$ is related to $b$ under relation $R$.  Functions are treated
+as special forms of  relations. 
+%A lambda abstraction, written as
+%$(\lambda x:X | P(x) @ E(x))$ specifies a partial function that maps
+%values $x:X$ (where $P(x)$ holds) to $E(x)$.
+
+The Schema notation is used to structure specifications in Z.  A schema
+such as $FlowPolicy$ defines a collection of variables (limited to the
+scope of the schema), and specifies how they are related. Schema
+$FlowPolicy[C,L,F]$ is defined in terms of generic types $[C,L,F]$,
+which must be instantiated when the schema is used.  Schemas may be
+defined in terms of other schemas. For example, the inclusion of
+$FlowPolicy$ within schema $RelabelPolicy$ is equivalent to the
+syntactic inclusion of the variables and predicates of $FlowPolicy$
+within $RelabelPolicy$.  Schemas may be composed using logical
+operators.  For example, $HLFlow\land RelabelPolicy$ is a schema with
+variables and predicates from both $HLFlow$ and $RelabelPolicy$.
+Schema predicates are useful for writing theorems: in
+Example~\ref{x:hilo-scup} the notation $\forall HLBind @ SCUP$ 
+is a universal quantification over all   the variables
+of $HLBind$ such that the predicate part of $HLBind$ implies the
+predicate part of schema $SCUP$. 
+
+The decorated schema $LabelStore'$ is $LabelStore$ with all variables
+primed.   The schema $\Delta LabelStore$ is a syntactic sugar for
+$LabelStore \land LabelStore'$.  It is typically used for specifying
+state transitions, with undecorated variables representing `before
+values' and decorated (primed) variables representing `after values'.
+$\theta SCUP$ gives a schema type with variables from schema
+$SCUP$. Schema $\Xi SCUP$ is the schema $\Delta SCUP$, but with the
+constraint that variable values are unchanged, that is,
+$\theta SCUP = \theta SCUP'$. 
+ 
+
+
+\begin{center}
+\begin{tabular}{ll}
+$first(a,b)$ & Component $a$ of ordered pair $(a,b)$\\
+$second(a,b)$ & Component $b$ of ordered pair $(a,b)$
+\\
+$\power A$  & The power set of $A$ \\
+$A \rel B$  & Relations between $A$ and $B$\\
+$A \fun B$  &  Total functions from $A$ to $B$\\
+$A \pfun B$ & Partial functions in $A\fun B$\\
+$\dom~R, \ran~R$ & Domain and Range of relation $R$
+\\
+ $R\oplus G$ & The relational override of $R$ by $G$\\
+$A\dres R$ & Relation $R$ with its domain restricted \\
+           & to values from $A$\\
+$R\rres A$ & Relation $R$ with its range restricted \\
+           & to values from $A$\\
+$\mu x:S @ x$ & a value from non-empty set $S$. 
+\end{tabular}
+\end{center}
+
+
+
+
+\section{Security Analysis of SCUP Manager: Summary} \label{a:noni}
+
+In this appendix we give a summary of a non-interference analysis
+\cite{GandM84,rushby:sri:92} of
+the SCUP Manager. In particular, we use an unwound version of 
+non-interference, noting that the manager operations are deterministic and
+input-total. 
+
+State $LabelStore$ looks  the same as state $LabelStore'$, when viewed
+from security level $vl$, when the label projections of the objects, whose
+levels are dominated by $vl$, are equal. This is formally specified as follows.  
+\begin{schema}{VEquiv[\LEVEL,\LABEL,\FID]} 
+LabelStore[\LEVEL,\LABEL]\\
+LabelStore'[\LEVEL,\LABEL]\\
+SCUP[\LEVEL,\LABEL,\FID]\\
+vl : \LEVEL
+\where
+\forall o:OID[\LEVEL] | first(o) \fleq vl @ 
+\\
+\t1 (o \in \dom(\delta) \iff o\in \dom(\delta')) 
+\land \\
+\t1 (o\in \dom \delta \cap \dom \delta' \implies 
+\delta(o) \lproj vl = \delta'(o) \lproj vl)
+\end{schema}
+
+Given this relationship, the first unwinding condition requires that 
+each operation, requested at a high-level, cannot interfere with a low-level
+view of the state. This corresponds to a no-write-up (NWD) rule and
+three theorems have been proven. 
+
+\begin{theorem}{Relabel\_NWD}[\LEVEL,\LABEL,\FID]
+\forall Relabel[\LEVEL,\LABEL,\FID] ; vl:\LEVEL @ 
+\\
+\t1  \lnot (req? \fleq vl) \implies VEquiv[\LEVEL,\LABEL,\FID]
+\end{theorem}
+
+\begin{theorem}{ViewLabel\_NWD}[\LEVEL,\LABEL,\FID]
+\forall ViewLabel[\LEVEL,\LABEL,\FID]; vl:\LEVEL @ 
+\\
+\t1  \lnot (req? \fleq vl) \implies VEquiv[\LEVEL,\LABEL,\FID]
+\end{theorem}
+
+\begin{theorem}{CopyLabel\_NWD}[\LEVEL,\LABEL,\FID]
+\forall CopyLabel[\LEVEL,\LABEL,\FID]; vl:\LEVEL @
+\\
+\t1  \lnot (req? \fleq vl) \implies VEquiv[\LEVEL,\LABEL,\FID]
+\end{theorem}
+
+The second unwinding condition requires that the outcome
+of an operation, requested at a low-level, cannot be based 
+in any way on the high-level part of the state.
+
+\begin{theorem}{Relabel\_NRU}[\LEVEL,\LABEL,\FID]
+\forall 
+        Relabel[\LEVEL,\LABEL,\FID]; \\
+\t1        Relabel[\LEVEL,\LABEL,\FID][\delta''/\delta, \delta'''/\delta']; 
+        vl : \LEVEL  
+\\
+\t1 @ VEquiv[\LEVEL,\LABEL,\FID][\delta''/\delta'] 
+\implies 
+ VEquiv[\LEVEL,\LABEL,\FID][\delta'''/\delta] 
+\end{theorem}
+
+\begin{theorem}{ViewLabel\_NRU}[\LEVEL,\LABEL,\FID]
+\forall ViewLabel[\LEVEL,\LABEL,\FID]; \\
+\t1        ViewLabel[\LEVEL,\LABEL,\FID][\delta''/\delta, \delta'''/\delta', lab!''/lab!]; 
+        vl : \LEVEL  \\
+\t1 @ (VEquiv[\LEVEL,\LABEL,\FID][\delta''/\delta'] \land (req?\fleq vl))\\
+\t2 \implies  
+lab!=lab!''
+%%%(VEquiv[\LEVEL,\LABEL,\FID][\delta'''/\delta] \land  lab!=lab!'') 
+\end{theorem}
+
+
+\begin{theorem}{CopyLabel\_NRU}[\LEVEL,\LABEL,\FID]
+\forall 
+        CopyLabel[\LEVEL,\LABEL,\FID]; \\
+\t1        CopyLabel[\LEVEL,\LABEL,\FID][\delta''/\delta, \delta'''/\delta']; 
+        vl : \LEVEL  \\
+\t1   @ VEquiv[\LEVEL,\LABEL,\FID][\delta''/\delta'] \\
+\t2 \implies VEquiv[\LEVEL,\LABEL,\FID][\delta'/\delta, \delta'''/\delta'] 
+\end{theorem}
+ 
+\section{Theorem Proving with Z/EVES}
+
+This paper was typeset using LaTeX with the fuzz and z-eves styles.
+Thus, the LaTeX source of the paper acts as the input specification to
+the Z/EVES system \cite{saaltink:97}.  In addition to using the system
+to syntax-, type- and domain- check the specifications in this paper,
+Z/EVES was also used for the security analysis of the SCUP Manager and
+verification of $ProxyPolicy$.  The  specification source, along
+with the Z/EVES proof scripts for all theorems are available from the
+author or under the author's home page at 
+\verb|<URL:http://www.cs.ucc.ie/sfoley.html>|.
+
+\end{document}
