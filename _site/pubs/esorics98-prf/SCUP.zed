@@ -1,0 +1,144 @@
+% Author Simon Foley s.foley@cs.ucc.ie
+% Time-stamp: <98/05/15 14:48:00 snf22>
+
+\section{Dynamic Label Policies} \label{s:scup}
+
+%%\begin{zsection}{SCUP}{toolkit}
+
+
+%%\syndef{\fleq}{inrel}{\fleq}
+\begin{schema}{FlowPolicy[\LEVEL]}
+\_ \fleq \_ : \LEVEL \rel \LEVEL 
+%%\\
+%%\ftop       : \LEVEL
+\where
+\forall u,v,w:\LEVEL @ \\
+\t1 (u \fleq u)  \land \\
+%%\t1 (u \fleq \ftop) \land  \\
+\t1 (u \fleq v \land v \fleq u \implies u = v) \land \\
+\t1 (u \fleq v \land v \fleq w \implies u \fleq w)
+\end{schema}
+
+
+
+\begin{schema}{RelabelPolicy[\LEVEL,\LABEL,\FID]}
+FlowPolicy[\LEVEL]\\
+\Rfun : (\FID \cross \LEVEL \cross \LABEL) \fun \LABEL
+\end{schema}
+
+
+
+\newcommand{\Tag}{\s{:-}}
+
+
+
+%%\syndef{\lproj }{infun4}{\lproj}
+\begin{schema}{CanonicalPolicy[\LEVEL,\LABEL,\FID]}
+RelabelPolicy[\LEVEL,\LABEL,\FID] 
+\also
+\_ \lproj \_ : \LABEL \cross \LEVEL \fun \LABEL
+\\
+invisible : \LABEL
+\where
+\forall u :\LEVEL  @ invisible \lproj u = invisible  
+\\
+%%\forall a:\LABEL @  a\lproj \ftop = a
+%%\\
+\forall u :\LEVEL; f:\FID  @ \Rfun(f,u,invisible) = invisible
+\end{schema}
+
+
+
+
+\begin{schema}{CP\_CView[\LEVEL,\LABEL,\FID]}
+CanonicalPolicy[\LEVEL,\LABEL,\FID]
+\where
+\forall v,w:\LEVEL; a: \LABEL @\\
+\t1 w \fleq v \implies a \lproj w = a \lproj v \lproj w
+\end{schema}
+
+
+\begin{schema}{CP\_NWD[\LEVEL,\LABEL,\FID]}
+CanonicalPolicy[\LEVEL,\LABEL,\FID]
+\where
+\forall f:\FID ; s,v:\LEVEL; a: \LABEL @\\
+\t1 \lnot s \fleq v \implies a \lproj v = \Rfun(f,s,a)\lproj v 
+\end{schema}
+
+\begin{schema}{CP\_NRU[\LEVEL,\LABEL,\FID]}
+CanonicalPolicy[\LEVEL,\LABEL,\FID]
+\where
+\forall f:\FID ; s,v:\LEVEL; a: \LABEL @\\
+\t1 \Rfun(f,s,a)\lproj v = \Rfun(f,s,a\lproj v)
+\end{schema}
+
+\begin{theorem}{CP\_NRUprev}[\LEVEL,\LABEL,\FID]
+\forall CP\_NRU[\LEVEL,\LABEL,\FID] ; f:\FID; s,v: \LEVEL; a,b:\LABEL @ \\
+\t1 a \lproj v = b \lproj v \implies \Rfun(f,s,a)\lproj v = \Rfun(f,s,b)\lproj v
+\end{theorem}
+
+\begin{schema}{SCUP[\LEVEL,\LABEL,\FID]}
+CP\_CView[\LEVEL,\LABEL,\FID]\\
+CP\_NWD[\LEVEL,\LABEL,\FID] \\
+CP\_NRU[\LEVEL,\LABEL,\FID]
+\end{schema}
+
+
+
+%%\begin[disabled]{theorem}{rule SCUPftopall}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID]; u: \LEVEL @ u \fleq \ftop 
+%%\end{theorem}
+%%
+%%\begin{theorem}{rule SCUPreflex}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID]; u: \LEVEL @ u\fleq u 
+%%\end{theorem}
+%%
+%%\begin{theorem}{rule SCUPtrans}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ;
+%% u,v,w: \LEVEL | u\fleq v \land v \fleq w @  u \fleq w
+%%\end{theorem}
+%%
+%%\begin{theorem}{SCUPanti}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ;
+%% u,v: \LEVEL | u\fleq v \land v \fleq u @  u = v
+%%\end{theorem}
+
+%%\begin{theorem}{rule SCUPinvisproj}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ; u:\LEVEL @ 
+%%  invisible \lproj u = invisible
+%%\end{theorem}
+
+%%\begin{theorem}{rule SCUPtopproj}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ; a:\LABEL @ 
+%%  a \lproj \ftop = a 
+%%\end{theorem}
+
+%%\begin{theorem}{rule SCUPrfuninvis}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ;u :\LEVEL; f:\FID @ 
+%%\Rfun(f,u,invisible) = invisible
+%%\end{theorem}
+%%
+
+%%\begin{theorem}{rule SCUPview}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ; v,w: \LEVEL; a:\LABEL @ \\
+%%\t1 w \fleq v \implies   a \lproj v \lproj w =  a \lproj w
+%%\end{theorem}
+%%
+
+%%\begin{theorem}{SCUPcons}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ;  v,w: \LEVEL; a,b:\LABEL @ \\
+%%\t1 (a \lproj v = b \lproj v \land w \fleq v \implies a \lproj w = b \lproj w)
+%%\end{theorem}
+%%
+
+%%
+%%\begin{theorem}{rule SCUPnwd}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ; f:\FID; s,v: \LEVEL; a:\LABEL @ \\
+%%\t1 \lnot s \fleq v \implies \Rfun(f,s,a)\lproj v  = a \lproj v  
+%%\end{theorem}
+%%
+%%\begin{theorem}{rule SCUPnru}[\LEVEL,\LABEL,\FID]
+%%\forall SCUP[\LEVEL,\LABEL,\FID] ; f:\FID; s,v: \LEVEL; a:\LABEL @ \\
+%%\t1 \Rfun(f,s,a\lproj v) = \Rfun(f,s,a)\lproj v
+%%\end{theorem}
+%%\end{zsection}

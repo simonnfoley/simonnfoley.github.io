@@ -1,0 +1,25 @@
+% Author Simon Foley s.foley@cs.ucc.ie
+% Time-stamp: <98/05/22 10:19:24 snf22>
+
+%%\begin{zsection}{OBJECT}{toolkit}
+
+
+\begin{zed}
+%% [ID]\\
+OID[\LEVEL] == (\LEVEL \cross ID)
+\end{zed}
+
+%%\begin{theorem}{grule OIDtype}[C]
+%%OID[C] \in \power(C \cross ID)
+%%\end{theorem}
+%%
+%%\begin{theorem}{rule OIDfirst}[\LEVEL]
+%%\forall o:OID[\LEVEL] @ o.1\in \LEVEL
+%%\end{theorem}
+%%
+%%\begin{theorem}{rule OIDsecond}[C]
+%%\forall o:OID[C] @ o.2\in ID
+%%\end{theorem}
+
+%%\end{zsection}
+

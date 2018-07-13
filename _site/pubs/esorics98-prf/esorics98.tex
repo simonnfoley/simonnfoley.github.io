@@ -1,0 +1,103 @@
+\documentclass{../../tex/llncs}
+
+%Author Simon Foley 
+%Time-stamp: <98/05/15 11:14:01 snf22>
+
+\usepackage{z-eves}
+\usepackage{epic}
+
+\begin{document}
+
+
+\newcommand{\s}[1]	 {\mbox{\tt #1}}               %for security level...
+\newtheorem{aex}{Example}
+\newenvironment{ex}{\begin{aex}\rm}{\hfill$\triangle$\end{aex}}
+
+\newcommand{\unclass}{\s{u}}
+\newcommand{\secret}{\s{s}}
+\newcommand{\topsec}{\s{t}}
+
+
+\newcommand{\fleq}{\leq}
+\newcommand{\ftop}{\top}
+\newcommand{\fneq}{|}
+\newcommand{\isat}{\sim}
+\newcommand{\lproj}{\project}
+\newcommand{\Rfun}{\mbox{$\cal F_{R}$}}
+\newcommand{\LEVEL}{C}
+\newcommand{\LABEL}{L}
+\newcommand{\FID}{F}
+\newcommand{\Invisible}{\mbox{\tt Invisible}}
+\newcommand{\Object}{\mbox{\tt Obj}}
+\newcommand{\Proxy}{\mbox{\tt Prxy}}
+\newcommand{\lo}{\mbox{\tt Lo}}
+\newcommand{\hi}{\mbox{\tt Hi}}
+\newcommand{\mlo}{\mbox{\tt Mlo}}
+\newcommand{\invis}{\mbox{\tt Invisible}}
+\newcommand{\deltaz}{\delta_0}
+
+\newcommand{\lev}{\gamma}
+
+
+
+\title{A Kernelized Architecture for Multilevel Secure Application Policies
+} 
+
+\author{Simon N.~Foley\inst{1}\fnmsep\inst{2}}
+\authorrunning{Simon N. Foley}
+\institute{
+% Centre for Communications Systems Research,
+University of Cambridge CCSR, Cambridge CB2 3DS, UK.
+\and
+Department of Computer Science, 
+University College, Cork, Ireland. 
+\email{s.foley@cs.ucc.ie}
+}
+
+\maketitle
+
+
+\begin{abstract}
+Mandatory label-based policies may be used to support a wide-range of
+application security requirements.  Labels encode the security state of
+system entities and the security policy specifies how these labels may
+change.  Building on previous results, this paper develops a 
+model for a kernelized framework for supporting these policies.  
+The framework provides the
+basis for, what is essentially,  an interpreter of multilevel programs:
+programs that manipulate multilevel label data-structures.  This
+enables application functionality and security concerns to be developed
+separately, bringing with it the advantages of a separation of concerns
+paradigm.
+\end{abstract}
+
+
+
+{\it In Proceedings of the European
+Symposium on Research in Computer Security, Louvain-la-Neuve, Belgium,
+September 1998, Springer LNCS, to appear.
+Visit Springer www page at 
+\verb#www.springer.de/comp/lncs#. 
+}
+
+
+\eject
+
+\input{SCUP.tex}\eject
+
+
+\input{OBJECT.tex}\eject
+
+
+\input{SKPI.tex}\eject
+
+
+\input{SKPIO.tex} \eject
+
+
+\input{REFINE.tex}\eject
+
+
+
+
+\end{document}
