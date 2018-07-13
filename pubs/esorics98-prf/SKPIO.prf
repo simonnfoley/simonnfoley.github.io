@@ -1,0 +1,15 @@
+% Author Simon Foley s.foley@cs.ucc.ie
+% Time-stamp: <98/05/22 10:18:46 snf22>
+
+\begin{zsectionproof}{SKPIO}{toolkit,SCUP,OBJECT}
+
+declare LabelStore0, InitialLabelStore0, Relabel0, \RelabelZ, ViewLabel0 ;
+
+
+try lemma InitialLabelStore0\$domainCheck; rewrite;
+try lemma Relabel0\$domainCheck;   rewrite;
+try lemma ViewLabel0\$domainCheck; rewrite;
+try lemma `\RelabelZ$domainCheck`; rewrite;
+
+\end{zsectionproof}
+
