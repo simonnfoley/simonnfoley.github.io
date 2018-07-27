@@ -53,12 +53,6 @@
   
       
    	
-  <url><loc>http://simonnfoley.github.io/pubs/PieczulFoleyDBSec2016.pdf</loc></url>
-	 
-    
-  
-      
-   	
   <url><loc>http://simonnfoley.github.io/pubs/ProtWrk98.ps.gz</loc></url>
 	 
     
@@ -83,7 +77,13 @@
   
       
    	
-  <url><loc>http://simonnfoley.github.io/pubs/acm97.ps</loc></url>
+  <url><loc>http://simonnfoley.github.io/pubs/acm97.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonnfoley.github.io/pubs/acm97.pdf_original</loc></url>
 	 
     
   
@@ -204,6 +204,12 @@
       
    	
   <url><loc>http://simonnfoley.github.io/pubs/dbsec2012.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonnfoley.github.io/pubs/dbsec2012.pdf_original</loc></url>
 	 
     
   
@@ -521,12 +527,6 @@
   
       
    	
-  <url><loc>http://simonnfoley.github.io/pubs/index.html</loc></url>
-	 
-    
-  
-      
-   	
   <url><loc>http://simonnfoley.github.io/pubs/intellcomm05.pdf</loc></url>
 	 
     
@@ -719,6 +719,12 @@
   
       
    	
+  <url><loc>http://simonnfoley.github.io/pubs/nspw2000.pdf</loc></url>
+	 
+    
+  
+      
+   	
   <url><loc>http://simonnfoley.github.io/pubs/nspw2004.pdf</loc></url>
 	 
     
@@ -797,6 +803,12 @@
   
       
    	
+  <url><loc>http://simonnfoley.github.io/pubs/qop2005.pdf_original</loc></url>
+	 
+    
+  
+      
+   	
   <url><loc>http://simonnfoley.github.io/pubs/relabel.ps.gz</loc></url>
 	 
     
@@ -822,6 +834,12 @@
       
    	
   <url><loc>http://simonnfoley.github.io/pubs/safeConfig2013S.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonnfoley.github.io/pubs/safeConfig2013S.pdf_original</loc></url>
 	 
     
   
@@ -887,6 +905,12 @@
   
       
    	
+  <url><loc>http://simonnfoley.github.io/pubs/secprot05.pdf_original</loc></url>
+	 
+    
+  
+      
+   	
   <url><loc>http://simonnfoley.github.io/pubs/secprot08.pdf</loc></url>
 	 
     
@@ -911,6 +935,12 @@
   
       
    	
+  <url><loc>http://simonnfoley.github.io/pubs/setop2012.pdf_original</loc></url>
+	 
+    
+  
+      
+   	
   <url><loc>http://simonnfoley.github.io/pubs/spc-2015.pdf</loc></url>
 	 
     
@@ -930,6 +960,12 @@
       
    	
   <url><loc>http://simonnfoley.github.io/pubs/spw2014.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonnfoley.github.io/pubs/spw2014.pdf_original</loc></url>
 	 
     
   
