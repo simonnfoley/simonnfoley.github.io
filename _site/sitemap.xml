@@ -4,29 +4,33 @@
 
  
 	
-  <url><loc>http://localhost:4000/about/</loc></url>
+  <url><loc>http://simonfoley.org/about/</loc></url>
 	 
   
 	
-  <url><loc>http://localhost:4000/</loc></url>
+  <url><loc>http://simonfoley.org/</loc></url>
 	 
   
 	
-  <url><loc>http://localhost:4000/css/main.css</loc></url>
+  <url><loc>http://simonfoley.org/css/main.css</loc></url>
 	 
   
 	
-  <url><loc>http://localhost:4000/projects.html</loc></url>
+  <url><loc>http://simonfoley.org/projects.html</loc></url>
 	 
   
 	
-  <url><loc>http://localhost:4000/publications.html</loc></url>
+  <url><loc>http://simonfoley.org/publications.html</loc></url>
 	 
   
 	
   
 	
-  <url><loc>http://localhost:4000/assets/main.css</loc></url>
+  <url><loc>http://simonfoley.org/talks.html</loc></url>
+	 
+  
+	
+  <url><loc>http://simonfoley.org/assets/main.css</loc></url>
 	 
   
 	
@@ -35,1033 +39,1087 @@
   
       
    	
-  <url><loc>http://localhost:4000/pubs/IPOM2006.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/IMT-TUM2018.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/PID2143731.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/IPOM2006.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/PID2909715.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/NorCERT2019.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ProtWrk98.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/PID2143731.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ProtWrk98.sld.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/PID2909715.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/VirAug99.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ProtWrk98.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/VirDec.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ProtWrk98.sld.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acm97.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/VirAug99.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acm97.pdf_original</loc></url>
+  <url><loc>http://simonfoley.org/pubs/VirDec.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acm97.sld.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acm97.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acmCPSSPC.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acm97.pdf_original</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acsac97-prf/acsac.prf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acm97.sld.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acsac97-prf/acsac97.tex</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acmCPSSPC.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acsac97.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acsac97-prf/acsac.prf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acsac97.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acsac97-prf/acsac97.tex</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/acsac97.sld.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acsac97.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/arspa2004.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acsac97.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/chinaunix.oak.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/acsac97.sld.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/crisis2012.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/arspa2004.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/cscwrpt.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/cautionaryTale2019.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/csfw06-short.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/chinaunix.oak.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/csfw2006.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/cps-spc2018slides.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/csfw94.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/crisis2012.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/csfw94.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/cscwrpt.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/csfw94.sld.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/csfw06-short.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/csfw95.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/csfw2006.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/cwunx.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/csfw94.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/cwunx.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/csfw94.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/cwunx.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/csfw94.sld.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/dbsec2012.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/csfw95.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/dbsec2016-FW.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/cwunx.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/dbsec2016-struts.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/cwunx.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/00Readme</loc></url>
+  <url><loc>http://simonfoley.org/pubs/cwunx.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/Makefile</loc></url>
+  <url><loc>http://simonfoley.org/pubs/dbsec2012.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/OBJECT.pct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/dbsec2016-FW.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/OBJECT.prf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/dbsec2016-struts.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/OBJECT.sct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/00Readme</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/OBJECT.zed</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/Makefile</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/REFINE.pct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/OBJECT.pct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/REFINE.prf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/OBJECT.prf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/REFINE.sct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/OBJECT.sct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/REFINE.zed</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/OBJECT.zed</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SCUP.pct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/REFINE.pct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SCUP.prf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/REFINE.prf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SCUP.sct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/REFINE.sct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SCUP.zed</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/REFINE.zed</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPI.pct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SCUP.pct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPI.prf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SCUP.prf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPI.sct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SCUP.sct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPI.zed</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SCUP.zed</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPIO.pct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPI.pct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPIO.prf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPI.prf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPIO.sct</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPI.sct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/SKPIO.zed</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPI.zed</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/esorics98.prf.tar</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPIO.pct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/esorics98.tex</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPIO.prf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98-prf/index.html</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPIO.sct</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/esorics98.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/SKPIO.zed</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/fast05.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/esorics98.prf.tar</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/fast2004.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/esorics98.tex</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/fast2011.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98-prf/index.html</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/fincrypt03.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/esorics98.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/fmse03.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/fast05.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/fmse03.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/fast2004.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/foleyMoss.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/fast2011.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/foleyMossfinal.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/fincrypt03.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/hash.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/fmse03.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/hcw04.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/fmse03.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/hongbinzhou.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/foleyMoss.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/iaai04.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/foleyMossfinal.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ibmjr.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/hash.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/icsoc04.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/hcw04.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/icsoc04.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/hongbinzhou.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifip02.ppt</loc></url>
+  <url><loc>http://simonfoley.org/pubs/iaai04.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifip2004.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ibmjr.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifip2005.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/icsoc04.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifip2009.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/icsoc04.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifipFoleyFitzgerald2009.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifip02.ppt</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifipsec02.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifip2004.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ifiptm2013.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifip2005.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ijhpcn05.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifip2009.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ijis2013.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifipFoleyFitzgerald2009.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/intellcomm05.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifipsec02.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ispdc04.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ifiptm2013.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/issc.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ijhpcn05.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/issc02.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ijis2013.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcas03.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/intellcomm05.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcs2-4.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ispdc04.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcs2005.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/issc.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcs2011a.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/issc02.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcs2012foley.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcas03.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcs2018.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcas03.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcs92.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcs2-4.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jcscscw.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcs2005.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jhsn06-hetero.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcs2011a.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jhsn06-risk.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcs2012foley.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jrpit09.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcs2018.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/jrpit2009.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcs92.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/manfed2011.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jcscscw.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/mason2013.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jhsn06-hetero.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/multitrust.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jhsn06-risk.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nisscp00.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jrpit09.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordic00.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/jrpit2009.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordic00.sld.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/manfed2011.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordic00panel.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/mason2013.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordsec01.abs</loc></url>
+  <url><loc>http://simonfoley.org/pubs/multitrust.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordsec01.sld.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nisscp00.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordsec01.sld.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordic00.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordsec07short.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordic00.sld.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordsec2018.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordic00panel.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nordsecsub.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordsec01.abs</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw00.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordsec01.sld.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw00.sld.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordsec01.sld.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw01.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordsec07short.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw01.sld.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordsec2018.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw2000.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nordsecsub.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw2004.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw00.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw2014.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw00.sld.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw2017.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw01.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw2018.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw01.sld.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw98.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw2000.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/nspw98.sld.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw2004.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/oak00.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw2014.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/oak96.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw2017.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/oak96.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw2018.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/pay02.ppt</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw98.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/pay02.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/nspw98.sld.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/pdpta05.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/oak00.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/pol2003.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/oak96.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/qop2005.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/oak96.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/relabel.ps.gz</loc></url>
+  <url><loc>http://simonfoley.org/pubs/pay02.ppt</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/relabelslides.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/pay02.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/rsre-20005.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/pdpta05.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/sac2004.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/pol2003.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/safeConfig2013S.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/preGDR2018.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/safecomp.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/preParanoia2019.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/safeconf2011.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/qop2005.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/safeconfig2010.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/relabel.ps.gz</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/safeconfig2013.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/relabelslides.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secpre2017.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/rsre-20005.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot01.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/sac2004.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot02.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/safeConfig2013S.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot03.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/safecomp.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot03.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/safeconf2011.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot05.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/safeconfig2010.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot08.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/safeconfig2013.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot09.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secpre2017.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/secprot2016.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot01.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/setop2012.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot02.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spc-2015.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot03.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw15-trans.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot03.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw15.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot05.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw2014.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot08.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw2014trans.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot09.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw2017.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/secprot2016.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw2017.pdf_original</loc></url>
+  <url><loc>http://simonfoley.org/pubs/setop2012.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/spw2017t.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spc-2015.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/sri-csl-95-17.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw15-trans.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ssw08.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw15.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/ssw08_foley_fitzgerald.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2014.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/stm2005.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2014trans.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/stm2010.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2017.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/sws2004.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2017.pdf_original</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/texput.log</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2017t.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/tquillinan.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2019.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/virus00.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/spw2019t.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/vodca04.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/sri-csl-95-17.ps</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/web2004.ps</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ssw08.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/wisg2009.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/ssw08_foley_fitzgerald.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/wisgV2.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/stm2005.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/wosis08.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/stm2010.pdf</loc></url>
 	 
     
   
       
    	
-  <url><loc>http://localhost:4000/pubs/wosis08_fitzgerald_foley_foghlu.pdf</loc></url>
+  <url><loc>http://simonfoley.org/pubs/sws2004.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/texput.log</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/tquillinan.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/virus00.ps</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/vodca04.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/web2004.ps</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/wisg2009.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/wisgV2.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/wosis08.pdf</loc></url>
+	 
+    
+  
+      
+   	
+  <url><loc>http://simonfoley.org/pubs/wosis08_fitzgerald_foley_foghlu.pdf</loc></url>
 	 
     
   
