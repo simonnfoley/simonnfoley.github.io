@@ -1,0 +1,111 @@
+% Author Simon Foley s.foley@cs.ucc.ie
+% Time-stamp: <98/05/15 14:48:00 snf22>
+
+\begin{zsectionproof}{SKPI}{toolkit,SCUP,OBJECT}
+
+
+declare through ViewLabel\_NRU ;
+
+try lemma Relabel\$domainCheck;
+invoke \Delta LabelStore;
+invoke LabelStore;
+invoke OID;
+rewrite;
+
+try lemma ViewLabel\$domainCheck;
+invoke \Xi LabelStore;
+invoke LabelStore;
+invoke OID;
+rewrite;
+
+try lemma VEquiv\$domainCheck;
+invoke LabelStore;
+invoke OID;
+rewrite;
+ 
+
+try lemma VEquivDom;
+invoke VEquiv;
+invoke LabelStore;
+instantiate o\_\_0 == o;
+invoke OID;
+prove by rewrite;
+
+try lemma VEquivProj;
+invoke VEquiv;
+invoke LabelStore;
+instantiate o\_\_0 == o;
+invoke OID;
+prove by rewrite;
+
+try lemma Relabel\_NWD;
+invoke Relabel;
+invoke \Delta LabelStore;
+invoke VEquiv;
+invoke LabelStore;
+invoke OID;
+prove by rewrite;
+split oid? \in \dom[\LEVEL \cross ID, \LABEL] \delta;
+prove by rewrite;
+split o = oid?;
+rewrite;
+ 
+try lemma ViewLabel\_NWD;
+invoke ViewLabel;
+invoke \Xi LabelStore;
+invoke VEquiv;
+invoke LabelStore;
+invoke OID;
+prove by rewrite;
+ 
+
+try lemma Relabel\_NRU;
+invoke Relabel;
+invoke \Delta LabelStore;
+invoke predicate VEquiv[\LEVEL, \LABEL, \FID][\delta'''/\delta];
+invoke LabelStore;
+invoke OID;
+prove by rewrite;
+use VEquivDom[\LEVEL, \LABEL, \FID][o := o];
+use VEquivProj[\LEVEL, \LABEL, \FID][o := o];
+use
+  CP\_NRUprev[\LEVEL, \LABEL, \FID][f := rfun?, s := req?, v := vl,
+                                    a := \delta o, b := \delta'' o];
+prove by rewrite;
+split o = oid?;
+cases;
+equality substitute o;
+split oid?.1 \fleq vl;
+rewrite;
+rearrange;
+split oid? \in \dom[\LEVEL \cross ID, \LABEL] \delta;
+rewrite;
+equality substitute;
+rewrite;
+next;
+rearrange;
+split oid? \in \dom[\LEVEL \cross ID, \LABEL] \delta;
+split oid? \in \dom[\LEVEL \cross ID, \LABEL] \delta'';
+prove by rewrite;
+next;
+
+try lemma ViewLabel\_NRU;
+invoke ViewLabel;
+invoke \Xi LabelStore; 
+invoke LabelStore;
+invoke OID;
+use VEquivDom[\LEVEL, \LABEL, \FID][o := oid?];
+use VEquivProj[\LEVEL, \LABEL, \FID][o := oid?];
+use
+  SCUPtrans[\LEVEL, \LABEL, \FID][u := first[\LEVEL, ID] oid?, v := req?,
+                                  w := vl];
+use
+  SCUPcons[\LEVEL, \LABEL, \FID][v := vl, w := req?, a := \delta oid?,
+                                 b := \delta'' oid?];
+prove by rewrite;
+split oid? \in \dom[\LEVEL \cross ID, \LABEL] \delta;
+split oid?.1 \fleq req?;
+prove by rewrite;
+
+
+\end{zsectionproof}
